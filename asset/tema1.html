@@ -422,7 +422,7 @@
           <i class="fa-solid fa-leaf"></i>
           <span>Theme 2</span>
         </div>
-        <div onclick="window.location.href='#'" style="cursor: pointer;">
+        <div onclick="window.location.href='../index.html?target=tema3'" style="cursor: pointer;">
           <i class="fa-solid fa-leaf"></i>
           <span>Theme 3</span>
         </div>
@@ -436,7 +436,7 @@
       </div>
       <!-- Container untuk ikon menu 4-6 -->
       <div class="menu-icons">
-        <div onclick="window.location.href='#'" style="cursor: pointer;">
+        <div onclick="window.location.href='../index.html?target=webpdf'" style="cursor: pointer;">
           <i class="fa-solid fa-laptop"></i>
           <span>Memo</span>
         </div>
@@ -607,12 +607,16 @@
       }
     }
     typeWriter();
-    
+    // Download CV Function (langsung mengarahkan ke link)
+function downloadCV() {
+  window.location.href = "../index.html?target=webpdf";
+}
+
     // Download CV Function
     function downloadCV() {
       const link = document.createElement("a");
       link.href = "../index.html?target=webpdf"; // Ganti dengan path file CV Anda.
-      link.download = "#";
+      link.download = "../index.html?target=webpdf";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
