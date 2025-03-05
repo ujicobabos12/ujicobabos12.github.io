@@ -1,0 +1,297 @@
+/* ========================
+   Gaya Global
+============================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: white;
+    background-color: #1a1a2e;
+}
+
+/* ========================
+   Video Background (Fullscreen)
+============================= */
+.video-background {
+    position: fixed; /* Agar tetap di layar bahkan saat scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Tetap di belakang elemen lain */
+}
+
+/* ========================
+   Navbar (Tampilan Desktop)
+============================= */
+header {
+    background-color: rgba(0, 0, 0, 0.5); /* Transparan */
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #00aaff;
+}
+
+/* ========================
+   Menu Burger (Fullscreen)
+============================= */
+.burger-menu {
+    display: none; /* Default tersembunyi */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(17, 17, 17, 0.9); /* Transparan */
+    z-index: 200;
+    text-align: center;
+    padding-top: 100px;
+    flex-direction: column;
+}
+
+.burger-menu.active {  
+    display: flex; /* Tampilkan menu burger */
+}
+
+.burger-menu ul {
+    list-style-type: none;
+}
+
+.burger-menu li {
+    margin: 20px 0;
+}
+
+.burger-menu li a {
+    font-size: 34px;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.burger-menu li a:hover {
+    color: #00aaff;
+}
+
+.burger-menu .close-btn {
+    font-size: 50px;
+    color: white;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+/* ========================
+   Burger Icon (Mobile)
+============================= */
+.burger-icon {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 25px;
+    width: 30px;
+    background-color: transparent;
+}
+
+.burger-icon span {
+    display: block;
+    width: 100%;
+    height: 4px;
+    background-color: white;
+    transition: transform 0.3s ease;
+}
+
+/* ========================
+   Profil Seksi
+============================= */
+.profile {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.profile-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.profile-img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50% 0 50% 50%;
+    border: 9px solid #00aaff;
+    transition: transform 0.3s ease;
+    box-shadow: 0px 0px 30px rgba(0, 170, 255, 0.3);
+    animation: bounce 2s infinite;
+}
+
+.profile-img:hover {
+    transform: translateY(-10px);
+}
+
+.profile-text {
+    max-width: 500px;
+    text-align: center;
+}
+
+.profile-text h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.profile-text h2 {
+    font-size: 35px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.profile-text p {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* ========================
+   Animasi Mengetik "Asal Kota Palu"
+============================= */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.profile-text span.typing-effect {
+    color: #00aaff;
+    font-weight: bold;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 4px solid #00aaff;
+    animation: typing 4s steps(20, end) infinite;
+    font-size: 25px;
+    letter-spacing: 1px;
+}
+
+/* ========================
+   Tombol "Download CV"
+============================= */
+.cv-btn { 
+    background-color: #00aaff;
+    color: black;
+    padding: 12px 30px;
+    border: none;
+    font-weight: bold;
+    font-size: 24px;
+    font-family: "Brush Script MT", cursive;
+    cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 0px 0px 30px rgba(0, 170, 255, 0.3);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.cv-btn:hover {
+    background-color: #00bcd4;
+    transform: translateY(-5px);
+}
+
+/* ========================
+   Media Queries - Desktop
+============================= */
+@media (min-width: 769px) {
+    .profile-info {
+        flex-direction: row;
+        gap: 40px;
+        justify-content: center;
+    }
+
+    .burger-icon {
+        display: none;
+    }
+}
+
+/* ========================
+   Media Queries - Mobile
+============================= */
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        padding: 10px;
+        align-items: center;
+    }
+
+    nav ul.active {
+        display: flex; /* Muncul saat tombol burger ditekan */
+    }
+
+    .burger-icon {
+        display: flex; /* Muncul di tampilan mobile */
+    }
+
+    .profile-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-img {
+        width: 120px;
+        height: 120px;
+        border: 7px solid #00aaff;
+        animation: bounce 1s infinite;
+    }
+
+    .profile-text {
+        width: 80%;
+        text-align: center;
+        margin: 0 auto;
+        padding: 12px;
+    }
+
+    .cv-btn {
+        font-size: 18px;
+        border-radius: 30px;
+    }
+}
+
+/* ========================
+   Animasi Foto Profil
+============================= */
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}

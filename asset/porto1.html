@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio</title>
+  <link rel="stylesheet" href="../css/porto1.css" />
+  <!-- Memuat ikon Font Awesome (memerlukan koneksi internet) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- VIDEO BACKGROUND -->
+  <video autoplay muted loop id="background-video">
+    <source src="../video/petir1.mp4" type="video/mp4">
+    Browser Anda tidak mendukung elemen video.
+  </video>
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <h1>Portofolio</h1>
+      <div class="profile">
+        <img src="../images/profile.jpg" alt="Foto Profil" class="profile-pic" />
+        <div class="contact-info">
+          <p class="p1"><i class="fas fa-home"></i> Alamat : BTN Pengawu Blok C4 No. 40, Kota Palu</p>
+          <p class="p2"><i class="fab fa-whatsapp"></i> WA/Tele/Telp: 0878-XXXX-XXXX</p>
+          <p class="p3"><i class="fas fa-envelope"></i> Email : example@gmail.com</p>
+          <p class="p4"><i class="fas fa-globe"></i> Web : <a href="#" class="link">github.com</a></p>
+        </div>
+      </div>
+    </header>
+
+    <!-- NAVBAR -->
+    <nav class="menu" id="navbar">
+      <div class="nav-toggle">
+        <a href="#" id="toggleBtn"><i class="fas fa-home"></i></a>
+      </div>
+      <div class="nav-items">
+        <a href="#" id="minat-link"><i class="fas fa-heart"></i></a>
+        <a href="#" id="pendidikan-link"><i class="fas fa-graduation-cap"></i></a>
+        <a href="#" id="pengalaman-link"><i class="fas fa-briefcase"></i></a>
+        <a href="#" id="skill-link"><i class="fas fa-cogs"></i></a>
+        <a href="#" id="sertifikat-link"><i class="fas fa-certificate"></i></a>
+        <!-- Link trigger untuk popup menu awal -->
+        <a href="#" id="popup-trigger"><i class="fa fa-reply-all"></i></a>
+      </div>
+    </nav>
+
+    <!-- SECTION: MINAT & PENDIDIKAN -->
+    <section class="content">
+      <!-- BOX MINAT -->
+      <div class="box" id="minat-modal">
+        <span class="close-btn">&times;</span>
+        <h2>Minat</h2>
+        <div class="item">
+          <div class="text">Teknologi dan Pemrograman</div>
+          <div class="icon"><i class="fas fa-code"></i></div>
+        </div>
+        <div class="item">
+          <div class="text">Membaca Buku Teknologi</div>
+          <div class="icon"><i class="fas fa-book"></i></div>
+        </div>
+        <div class="item">
+          <div class="text">Desain Grafis &amp; Kreatif</div>
+          <div class="icon"><i class="fas fa-pencil-alt"></i></div>
+        </div>
+        <h3 class="social-title">Sosmed</h3>
+        <div class="social-icons">
+          <div class="social-icon"><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></div>
+          <div class="social-icon"><a href="#" target="_blank"><i class="fab fa-github"></i></a></div>
+          <div class="social-icon"><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></div>
+          <div class="social-icon"><a href="#"><i class="fab fa-linkedin-in"></i></a></div>
+          <div class="social-icon"><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></div>
+          <div class="social-icon"><a href="#" target="_blank"><i class="fab fa-tiktok"></i></a></div>
+        </div>
+      </div>
+
+      <!-- BOX PENDIDIKAN -->
+      <div class="box" id="pendidikan-modal">
+        <span class="close-btn">&times;</span>
+        <h2>Pendidikan</h2>
+        <div class="item">
+          <div class="text">
+            <span class="year">2018 - 2022</span><br/>
+            <span class="univ">Universitas Teknologi XYZ</span><br/>
+            <span class="jurusan">Teknik Informatika</span>
+          </div>
+          <div class="icon"><i class="fas fa-graduation-cap"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: KEAHLIAN (CIRCULAR PROGRESS) -->
+    <div class="keahlian-box" id="skill-modal">
+      <span class="close-btn">&times;</span>
+      <h2>KEAHLIAN</h2>
+      <div class="skill-wrapper">
+        <!-- Setiap progress bar memiliki teks target (misalnya "60%") -->
+        <div class="skill-item">
+          <div class="circle circle-60" data-targetpercent="60"><span>60%</span></div>
+          <p>Komputer</p>
+        </div>
+        <div class="skill-item">
+          <div class="circle circle-80" data-targetpercent="80"><span>80%</span></div>
+          <p>Office</p>
+        </div>
+        <div class="skill-item">
+          <div class="circle circle-75" data-targetpercent="75"><span>75%</span></div>
+          <p>Emergency</p>
+        </div>
+        <div class="skill-item">
+          <div class="circle circle-90" data-targetpercent="90"><span>90%</span></div>
+          <p>Mekanika</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: PENGALAMAN KERJA & SERTIFIKAT -->
+    <section class="content">
+      <!-- BOX PENGALAMAN KERJA -->
+      <div class="box" id="pengalaman-modal">
+        <span class="close-btn">&times;</span>
+        <h2>Pengalaman Kerja</h2>
+        <div class="item">
+          <div class="text">
+            <span class="year">2022 - Sekarang</span><br/>
+            <span class="univ">PT. Contoh Maju</span><br/>
+            <span class="jurusan">Web Developer</span>
+          </div>
+          <div class="icon"><i class="fas fa-briefcase"></i></div>
+        </div>
+      </div>
+
+      <!-- BOX SERTIFIKAT -->
+      <div class="box" id="sertifikat-modal">
+        <span class="close-btn">&times;</span>
+        <h2>Sertifikat</h2>
+        <div class="item">
+          <div class="text">
+            <span class="year">2020</span><br/>
+            <span class="univ">Web Design Specialist</span><br/>
+            <span class="jurusan">Issued by ABC Institute</span>
+          </div>
+          <div class="icon"><i class="fas fa-certificate"></i></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- POPUP MENU AWAL (Hidden by default) -->
+  <div id="popup-menu" class="popup-menu">
+    <div class="popup-content">
+      <ul>
+        <li><a href="../index.html?target=tema1" id="popup-home"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#" id="popup-change-theme"><i class="fas fa-cog"></i> Ganti Tema</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- POPUP MENU KEDUA UNTUK PILIHAN TEMA (Hidden by default) -->
+  <div id="theme-popup" class="popup-menu">
+    <div class="popup-content">
+      <ul>
+        <li><a href="../index.html?target=tema1" id="tema1"><i class="fas fa-paint-brush"></i> Tema 1</a></li>
+        <li><a href="theme2.html" id="theme2"><i class="fas fa-paint-brush"></i> Tema 2</a></li>
+        <li><a href="theme3.html" id="theme3"><i class="fas fa-paint-brush"></i> Tema 3</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2023 Portofolio. All rights reserved. | <a href="#">Privacy Policy</a></p>
+  </footer>
+
+  <!-- ===========================
+       SCRIPT UNTUK INTERAKSI
+  ============================ -->
+  <script>
+    // ===========================
+    // TOGGLE NAVBAR
+    // ===========================
+    const toggleBtn = document.getElementById('toggleBtn');
+    const navbar = document.getElementById('navbar');
+
+    // Saat icon home diklik, toggle kelas "open" pada navbar
+    toggleBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      navbar.classList.toggle('open');
+    });
+
+    // Saat kursor keluar dari area navbar, pastikan navbar tertutup
+    navbar.addEventListener('mouseleave', function() {
+      navbar.classList.remove('open');
+    });
+
+    // ===========================
+    // FUNGSI UNTUK MENUTUP SEMUA MODAL
+    // ===========================
+    function closeAllModals() {
+      document.querySelectorAll('.box, .keahlian-box').forEach(b => b.classList.remove('active'));
+      document.body.classList.remove('modal-active');
+    }
+
+    // ===========================
+    // EVENT LISTENER UNTUK TOMBOL CLOSE DI MODAL
+    // ===========================
+    const closeButtons = document.querySelectorAll('.close-btn');
+    closeButtons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.parentElement.classList.remove('active');
+        document.body.classList.remove('modal-active');
+      });
+    });
+
+    // ===========================
+    // MODAL BOXES UNTUK NAVBAR
+    // ===========================
+    const modalBoxes = document.querySelectorAll('.box, .keahlian-box');
+    const modalMap = {
+      'minat-link': 'minat-modal',
+      'pendidikan-link': 'pendidikan-modal',
+      'pengalaman-link': 'pengalaman-modal',
+      'skill-link': 'skill-modal',
+      'sertifikat-link': 'sertifikat-modal'
+    };
+
+    // Menambahkan event listener pada masing-masing link navbar
+    Object.keys(modalMap).forEach(linkId => {
+      const link = document.getElementById(linkId);
+      if (link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          closeAllModals();
+          document.getElementById(modalMap[linkId]).classList.add('active');
+          document.body.classList.add('modal-active');
+        });
+      }
+    });
+
+    // Menangani interaksi untuk membuka/tutup modal saat box diklik
+    modalBoxes.forEach(box => {
+      box.addEventListener('click', function() {
+        modalBoxes.forEach(b => { if(b !== this) b.classList.remove('active'); });
+        this.classList.toggle('active');
+        if (this.classList.contains('active')) {
+          document.body.classList.add('modal-active');
+        } else {
+          document.body.classList.remove('modal-active');
+        }
+      });
+    });
+
+    // ===========================
+    // SET PROGRES BAR AWAL DI BAGIAN KEAHLIAN
+    // ===========================
+    const circles = document.querySelectorAll('.circle');
+    circles.forEach(circle => {
+      const span = circle.querySelector('span');
+      // Ambil target percent dari atribut data-targetpercent
+      const targetPercent = parseInt(circle.getAttribute('data-targetpercent'));
+      const targetDegree = (targetPercent / 100) * 360;
+      // Set background dan teks ke nilai target
+      circle.style.background = `conic-gradient(#FFFF00 0deg ${targetDegree}deg, #333 ${targetDegree}deg 360deg)`;
+      span.textContent = `${targetPercent}%`;
+    });
+
+    // ===========================
+    // ANIMASI PROGRES BAR MELINGKAR DI BAGIAN KEAHLIAN
+    // ===========================
+    circles.forEach(circle => {
+      circle.addEventListener('mouseenter', function() {
+        const span = this.querySelector('span');
+        const targetPercent = parseInt(this.getAttribute('data-targetpercent'));
+        const targetDegree = (targetPercent / 100) * 360;
+        let currentDegree = 0;
+
+        // Reset tampilan saat mulai animasi
+        this.style.background = `conic-gradient(#FFFF00 0deg 0deg, #333 0deg 360deg)`;
+        span.textContent = '0%';
+
+        // Hentikan interval jika masih berjalan
+        if (this.animationInterval) {
+          clearInterval(this.animationInterval);
+        }
+
+        // Mulai animasi dari 0 hingga mencapai target
+        this.animationInterval = setInterval(() => {
+          currentDegree += 5; // Increment derajat
+          if (currentDegree >= targetDegree) {
+            currentDegree = targetDegree;
+            clearInterval(this.animationInterval);
+          }
+          this.style.background = `conic-gradient(#FF0000 0deg ${currentDegree}deg, #333 ${currentDegree}deg 360deg)`;
+          span.textContent = `${Math.round((currentDegree / 360) * 100)}%`;
+        }, 20);
+      });
+
+      // Saat kursor keluar, jika animasi belum selesai, selesaikan ke nilai target,
+      // jika sudah selesai, biarkan tampilannya tetap seperti nilai target.
+      circle.addEventListener('mouseleave', function() {
+        clearInterval(this.animationInterval);
+        const span = this.querySelector('span');
+        const targetPercent = parseInt(this.getAttribute('data-targetpercent'));
+        const targetDegree = (targetPercent / 100) * 360;
+        // Selesaikan tampilan dengan menampilkan nilai target
+        this.style.background = `conic-gradient(#FFFF00 0deg ${targetDegree}deg, #333 ${targetDegree}deg 360deg)`;
+        span.textContent = `${targetPercent}%`;
+      });
+    });
+
+    // ===========================
+    // POPUP MENU INTERAKSI
+    // ===========================
+    const popupTrigger = document.getElementById('popup-trigger');
+    const popupMenu = document.getElementById('popup-menu');
+
+    // Tampilkan popup awal saat klik trigger
+    popupTrigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      popupMenu.style.display = 'flex';
+    });
+
+    // Event listener untuk menu pilihan di popup awal
+    document.getElementById('popup-home').addEventListener('click', function(e) {
+      e.preventDefault();
+      // Redirect ke halaman Home (index.html)
+      window.location.href = '../index.html?target=tema1';
+    });
+
+    // Ubah event listener untuk "Ganti Tema" agar menampilkan popup pilihan tema baru
+    document.getElementById('popup-change-theme').addEventListener('click', function(e) {
+      e.preventDefault();
+      // Tutup popup awal
+      popupMenu.style.display = 'none';
+      // Tampilkan popup tema baru
+      document.getElementById('theme-popup').style.display = 'flex';
+    });
+
+    // Tutup popup awal jika klik di luar konten popup
+    popupMenu.addEventListener('click', function(e) {
+      if (e.target === popupMenu) {
+        popupMenu.style.display = 'none';
+      }
+    });
+
+    // Tutup popup tema jika klik di luar konten popup
+    document.getElementById('theme-popup').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

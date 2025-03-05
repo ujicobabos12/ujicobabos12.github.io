@@ -1,0 +1,252 @@
+/* Reset CSS */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #111;
+            margin: 0;
+            position: relative;
+        }
+    /* ========================
+       Background Video (Desktop)
+    ========================= */
+    .desktop-bg-video {
+      position: fixed; 
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    @media (min-width: 481px) and (max-width: 768px) {
+      .spinner {
+        width: 120px;
+        height: 120px;
+        border: 8px solid #00aaff;
+        border-top-color: #ff0000;
+      }
+      .loader-gif {
+        width: 70px;
+      }
+      #spinner-text {
+        font-size: 20px;
+      }
+    }
+    @media (min-width: 1025px) {
+      .spinner {
+        width: 200px;
+        height: 200px;
+        border: 12px solid #00aaff;
+        border-top-color: #ff0000;
+      }
+      .loader-gif {
+        width: 150px;
+      }
+      #spinner-text {
+        font-size: 28px;
+      }
+    }
+
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* Kolom untuk hasil */
+        .result-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #1976D2;
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #fff; /* Mengubah warna tulisan menjadi hitam */
+            border-bottom: 3px solid #fff; /* Menambahkan garis bawah */
+            padding-bottom: 10px; /* Menambahkan jarak di bawah garis */
+        }
+
+        .nominal {
+            font-size: 18px;
+            color: yellow;
+            font-weight: bold;
+        }
+
+        .nominal span {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Kolom untuk kalkulator */
+        .calculator {
+            background-color: #ffffff;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            color: #333;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .display {
+            width: 100%;
+            height: 50px;
+            font-size: 20px;
+            text-align: right;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px; /* Kurangi jarak antar tombol */
+        }
+
+        .button {
+            background-color: #2196F3;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 6px;
+            color: #fff;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background-color: #1976D2;
+        }
+
+        .button:active {
+            background-color: #1565C0;
+        }
+
+        .button:focus {
+            outline: none;
+        }
+
+        /* Tombol icon home */
+        .home-button {
+            background-color: #2196F3; /* Sama dengan warna tombol kalkulator */
+            border: none;
+            padding: 10px;
+            font-size: 18px;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            justify-self: center; /* Posisikan tombol di tengah grid */
+            align-self: center; /* Posisikan tombol di tengah secara vertikal */
+        }
+
+        .home-button:hover {
+            background-color: #1976D2; /* Efek hover, sedikit lebih gelap */
+        }
+
+        .home-button:active {
+            background-color: #1565C0; /* Efek aktif ketika tombol ditekan */
+        }
+
+        .home-button:focus {
+            outline: none;
+        }
+
+        /* Kolom untuk gambar (foto yang bisa digeser) */
+        .image-container {
+            position: absolute;
+            left: 19%;
+            top: 40%;
+            cursor: grab;
+            width: 150px;
+            height: 150px;
+            transition: width 0.3s, height 0.3s; /* Smooth resizing */
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .calculator, .result-container {
+                width: 90%;
+                max-width: none;
+            }
+
+            .display {
+                font-size: 18px;
+            }
+
+            .button {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .display {
+                font-size: 16px;
+            }
+
+            .button {
+                padding: 6px;
+                font-size: 12px;
+            }
+
+            .buttons {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .nominal {
+                font-size: 14px;
+            }
+        }
+        
