@@ -194,21 +194,7 @@
     </div>
     <div id="spinner-text">0%</div>
   </div>
-
-  <!-- KONTEN UTAMA HALAMAN (konten utama tetap terlihat samar di belakang preloader) -->
-  <div id="content" style="display: none;">
-    <header>Profil & Skill</header>
-    <div class="profile-header">
-      <img src="profile.jpg" alt="Foto Profil">
-      <div class="info">
-        <p>Alamat: BTN Pengawu Blok C4 No 40, Kota Palu</p>
-        <p>Telp: 0878-9555-9578 | Email: <a href="mailto:ewhann2015@gmail.com">ewhann2015@gmail.com</a></p>
-        <p>GitHub: <a href="https://emhan28.github.io" target="_blank">emhan28.github.io</a></p>
-      </div>
-    </div>
-    <!-- Tambahkan konten utama lainnya di sini -->
-  </div>
-
+  
   <!-- SCRIPT: Mengupdate teks progress dan menonaktifkan preloader setelah mencapai 100% -->
   <script>
 // loading.js
@@ -230,8 +216,13 @@ window.addEventListener("load", function () {
         // Mapping nilai parameter ke halaman target
         const pageMapping = {
           tema1: "asset/tema1.html",
+          tema2: "asset/tema2.html",
+          tema3: "asset/tema3.html",
           porto1: "asset/porto1.html",
+          porto2: "asset/porto2.html",
+          porto3: "asset/porto3.html",
           kalkulator: "asset/kalkulator.html",
+          webpdf: "asset/webpdf.html",
         };
 
         // Jika parameter target tidak ditemukan, fallback ke index.html
