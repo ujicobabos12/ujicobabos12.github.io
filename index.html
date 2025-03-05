@@ -21,6 +21,17 @@
       padding: 0;
     }
 
+    /* ========================
+       Background Video (Desktop)
+    ========================= */
+    .desktop-bg-video {
+      position: fixed; 
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
     /* ======================================================
        PRELOADER
        ======================================================
@@ -170,6 +181,11 @@
   </style>
 </head>
 <body>
+  <!-- Background Video -->
+  <video class="desktop-bg-video" autoplay muted loop playsinline>
+    <source src="video/angka.mp4" type="video/mp4">
+      Browser Anda tidak mendukung video.
+    </video>
   <!-- PRELOADER: Loading indicator dengan gambar GIF di dalam spinner dan teks progress -->
   <div id="preloader">
     <div class="spinner-container">
@@ -214,6 +230,7 @@ window.addEventListener("load", function () {
         // Mapping nilai parameter ke halaman target
         const pageMapping = {
           tema1: "asset/tema1.html",
+          porto1: "asset/porto1.html",
           kalkulator: "asset/kalkulator.html",
         };
 
