@@ -418,7 +418,7 @@
           <i class="fa-solid fa-leaf"></i>
           <span>Theme 1</span>
         </div>
-        <div onclick="window.location.href='#'" style="cursor: pointer;">
+        <div onclick="window.location.href='../index.html?target=tema2'" style="cursor: pointer;">
           <i class="fa-solid fa-leaf"></i>
           <span>Theme 2</span>
         </div>
@@ -611,8 +611,8 @@
     // Download CV Function
     function downloadCV() {
       const link = document.createElement("a");
-      link.href = "cv.pdf"; // Ganti dengan path file CV Anda.
-      link.download = "CV_Emhan.pdf";
+      link.href = "../index.html?target=webpdf"; // Ganti dengan path file CV Anda.
+      link.download = "#";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
