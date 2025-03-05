@@ -31,9 +31,7 @@
       object-fit: cover;
       z-index: -1;
     }
-    /* ========================
-       Navbar Desktop (Horizontal, di bagian bawah, menu awal collapsed)
-    ========================= */
+
     /* ========================
        Top Bar (Icon di Atas PDF)
        - Awalnya hanya tampil ikon Home (collapsed)
@@ -61,7 +59,7 @@
       transition: transform 0.3s, color 0.3s;
     }
     .icon-btn:hover {
-      color: #ffff00;
+      color: #ff6666;
       transform: scale(1.3);
     }
     .icon-label {
@@ -76,6 +74,7 @@
     .icon-btn:hover .icon-label {
       display: block;
     }
+
     /* ========================
        Kontainer PDF
        - Area scrollable independen untuk PDF
@@ -89,7 +88,7 @@
       height: 70%;
       overflow: auto;
       border: 10px solid #A9A9A9;
-      border-radius: 10px 10px 10px 10px;
+      border-radius: 10px;
       box-shadow: 0 0 15px rgba(255,255,255,0.3);
       background: #ffffff;
       position: relative;
@@ -110,8 +109,9 @@
     }
     .pdf-wrapper:hover .pdf-caption {
       transform: translateX(-50%) scale(1.3);
-      color: #ffff00;
+      color: #111111;
     }
+
     /* ========================
        Tombol Download PDF
        - Tidak membesar, hanya berganti warna saat dihover
@@ -133,12 +133,13 @@
       z-index: 10;
     }
     .download-btn:hover {
-      background-color: #ffff00;
+      background-color: #ff6666;
       box-shadow: 0 6px 15px rgba(255,255,255,0.6);
     }
+
     /* ========================
        Popup Login (selalu tampil saat halaman dimuat)
-       - Tidak ada tombol close agar tidak bisa ditutup kecuali login benar
+       - Border tebal 5px
     ========================= */
     .overlay {
       display: block;
@@ -154,15 +155,18 @@
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 300px;
-      background-color: #1a1a1a;
-      border: 2px solid #ffffff;
+      background-color: #1d1d1d;
+      border: 5px solid #ffffff; /* Tebal border putih */
       border-radius: 10px;
       padding: 20px;
       box-shadow: 0 0 15px rgba(255,255,255,0.3);
       z-index: 1000;
+      color: #fff;
     }
+
     /* ========================
        Slider di dalam Popup Login (6 gambar PNG)
+       - Hapus border, perkecil tombol prev/next
     ========================= */
     .slider-container {
       width: 100%;
@@ -170,6 +174,8 @@
       overflow: hidden;
       position: relative;
       margin-bottom: 15px;
+      /* border: 1px solid #ccc;  <-- Dihapus */
+      border-radius: 5px;
     }
     .slider-container img {
       width: 100%;
@@ -177,6 +183,34 @@
       object-fit: cover;
       border-radius: 5px;
     }
+    /* Tombol prev/next diperkecil */
+    .slider-container button.prev,
+    .slider-container button.next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: silver; /* Warna tombol */
+      color: #000;
+      border: none;
+      padding: 2px 6px; /* DIPERKECIL */
+      border-radius: 3px; /* DIPERKECIL */
+      cursor: pointer;
+      font-size: 12px; /* DIPERKECIL */
+      opacity: 0.8;
+      transition: opacity 0.3s;
+      z-index: 10;
+    }
+    .slider-container button.prev:hover,
+    .slider-container button.next:hover {
+      opacity: 1;
+    }
+    .slider-container button.prev {
+      left: 10px;
+    }
+    .slider-container button.next {
+      right: 10px;
+    }
+
     /* ========================
        Judul Popup Login
     ========================= */
@@ -207,6 +241,7 @@
       outline: none;
       border-color: #ffffff;
     }
+
     /* ========================
        Baris ikon di bawah input password: 3 ikon
     ========================= */
@@ -219,13 +254,14 @@
       font-size: 24px;
       cursor: pointer;
       transition: transform 0.3s, color 0.3s;
+      color: #fff; /* Warna putih untuk ikon */
     }
     .icon-row i:hover {
-      color: #ffff00;
+      color: #ff6666;
       transform: scale(1.2);
     }
     .login-popup form button {
-      background-color: #000000;
+      background-color: #111;
       color: #ffffff;
       border: 2px solid #ffffff;
       border-radius: 5px;
@@ -238,6 +274,7 @@
       background-color: #ffffff;
       color: #000000;
     }
+
     /* ========================
        Popup Error (untuk password salah)
     ========================= */
@@ -257,6 +294,7 @@
       font-size: 16px;
       text-align: center;
       margin-bottom: 10px;
+      color: #fff;
     }
     .error-popup button {
       background-color: #ff0000;
@@ -271,6 +309,7 @@
     .error-popup button:hover {
       background-color: #ff6666;
     }
+
     /* ========================
        Popup Lock (untuk ikon kunci di login)
        - Muncul saat ikon kunci diklik, tampil di atas popup login
@@ -313,6 +352,7 @@
     .lock-popup button:hover {
       background-color: #ff6666;
     }
+
     /* ========================
        Media Query (Mobile & Tablet)
        - Untuk layar dengan lebar ≤1024px, izinkan body discroll
@@ -338,13 +378,14 @@
     <source src="../video/angka.mp4" type="video/mp4">
       Browser Anda tidak mendukung video.
     </video>
+  
   <!-- Top Bar: Icon Home & Reply All -->
   <div class="top-bar collapsed" id="topBar">
     <button class="icon-btn" id="homeBtn" onclick="expandTopBar()"> 
       <i class="fa-solid fa-house"></i>
       <span class="icon-label">Home</span>
     </button>
-    <button class="icon-btn" id="replyBtn" onclick="location.href='index.html'"> 
+    <button class="icon-btn" id="replyBtn" onclick="location.href='../index.html?target=tema1'"> 
       <i class="fa fa-reply-all"></i>
       <span class="icon-label">Back</span>
     </button>
@@ -365,17 +406,21 @@
     <button onclick="closeError()">OK</button>
   </div>
 
-  <!-- Popup Login (selalu tampil saat halaman dimuat) -->
+  <!-- Overlay & Popup Login (selalu tampil saat halaman dimuat) -->
   <div class="overlay" id="overlay"></div>
   <div class="login-popup" id="loginPopup">
     <!-- Slider di dalam Popup Login (6 gambar PNG) -->
     <div class="slider-container" id="sliderContainer">
-      <img src="slider1.png" alt="Slide 1" class="slide" style="display: block;" />
-      <img src="slider2.png" alt="Slide 2" class="slide" style="display: none;" />
-      <img src="slider3.png" alt="Slide 3" class="slide" style="display: none;" />
-      <img src="slider4.png" alt="Slide 4" class="slide" style="display: none;" />
-      <img src="slider5.png" alt="Slide 5" class="slide" style="display: none;" />
-      <img src="slider6.png" alt="Slide 6" class="slide" style="display: none;" />
+      <!-- Tombol Prev & Next (diperkecil) -->
+      <button class="prev" onclick="prevSlide()">&#10094;</button>
+      <button class="next" onclick="nextSlide()">&#10095;</button>
+      
+      <img src="../images/slider1.png" alt="Slide 1" class="slide" style="display: block;" />
+      <img src="../images/slider2.png" alt="Slide 2" class="slide" style="display: none;" />
+      <img src="../images/slider3.png" alt="Slide 3" class="slide" style="display: none;" />
+      <img src="../images/slider4.png" alt="Slide 4" class="slide" style="display: none;" />
+      <img src="../images/slider5.png" alt="Slide 5" class="slide" style="display: none;" />
+      <img src="../images/slider6.png" alt="Slide 6" class="slide" style="display: none;" />
     </div>
     <h2>Login</h2>
     <form id="loginForm">
@@ -385,7 +430,7 @@
       <div class="icon-row">
         <i class="fa-solid fa-user-gear"></i>
         <i class="fa-solid fa-key" id="lockIcon"></i>
-        <i class="fa fa-reply-all"></i>
+        <a href="../index.html?target=tema1"><i class="fa fa-reply-all"></i></a>
       </div>
       <button type="submit">Masuk</button>
     </form>
@@ -472,13 +517,29 @@
     // --- Slider di dalam Popup Login (6 gambar PNG) ---
     let slideIndex = 0;
     const slides = document.querySelectorAll('.slider-container .slide');
+
     function showSlides() {
       slides.forEach((slide, idx) => {
         slide.style.display = (idx === slideIndex) ? 'block' : 'none';
       });
-      slideIndex = (slideIndex + 1) % slides.length;
-      setTimeout(showSlides, 3000);
     }
+
+    function nextSlide() {
+      slideIndex = (slideIndex + 1) % slides.length;
+      showSlides();
+    }
+
+    function prevSlide() {
+      slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+      showSlides();
+    }
+
+    // Otomatis slide setiap 3 detik (opsional)
+    setInterval(() => {
+      nextSlide();
+    }, 3000);
+
+    // Tampilkan slide pertama saat load
     showSlides();
   </script>
 </body>
