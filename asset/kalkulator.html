@@ -26,113 +26,6 @@
             margin: 0;
             position: relative;
         }
-
-    /* ======================================================
-       PRELOADER
-       ======================================================
-       - Menampilkan loading indicator berupa spinner melingkar di tengah layar.
-       - Gambar GIF akan ditempatkan tepat di tengah spinner.
-       - Spinner menggunakan kombinasi warna:
-         • Warna dasar (border) biru: #00aaff.
-         • Bagian atas (border-top) berwarna merah: #ff0000.
-       - Latar belakang preloader menggunakan warna transparan sehingga menu utama tetap samar terlihat.
-       - Teks progress muncul tepat di bawah spinner.
-    ====================================================== */
-    #preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9); /* Latar belakang agak transparan */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 1;
-      transition: opacity 0.5s ease;
-    }
-    /* Container spinner untuk menggabungkan spinner dan GIF */
-    .spinner-container {
-      position: relative;
-      display: inline-block;
-    }
-    .spinner {
-      border-radius: 50%;
-      /* Ukuran spinner default untuk layar sedang */
-      width: 150px;
-      height: 150px;
-      border: 10px solid #00aaff;  /* Warna dasar biru */
-      border-top-color: #ff0000;   /* Bagian atas berwarna merah */
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    /* Gaya untuk gambar GIF di dalam spinner, ditempatkan tepat di tengah spinner */
-    .loader-gif {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90px; /* Ukuran GIF disesuaikan agar muat di dalam spinner */
-      height: auto;
-      z-index: 1001;
-    }
-    /* Teks progress yang muncul tepat di bawah spinner */
-    #spinner-text {
-      margin-top: 20px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #00aaff;
-      text-align: center;
-    }
-    /* Media queries untuk ukuran spinner responsif */
-    @media (max-width: 480px) {
-      .spinner {
-        width: 80px;
-        height: 80px;
-        border: 6px solid #00aaff;
-        border-top-color: #ff0000;
-      }
-      .loader-gif {
-        width: 40px;
-      }
-      #spinner-text {
-        font-size: 16px;
-      }
-    }
-    @media (min-width: 481px) and (max-width: 768px) {
-      .spinner {
-        width: 120px;
-        height: 120px;
-        border: 8px solid #00aaff;
-        border-top-color: #ff0000;
-      }
-      .loader-gif {
-        width: 70px;
-      }
-      #spinner-text {
-        font-size: 20px;
-      }
-    }
-    @media (min-width: 1025px) {
-      .spinner {
-        width: 200px;
-        height: 200px;
-        border: 12px solid #00aaff;
-        border-top-color: #ff0000;
-      }
-      .loader-gif {
-        width: 150px;
-      }
-      #spinner-text {
-        font-size: 28px;
-      }
-    }
-
-
         .container {
             display: flex;
             flex-direction: column;
@@ -331,14 +224,14 @@
   <div id="preloader">
     <div class="spinner-container">
       <div class="spinner"></div>
-      <img class="loader-gif" src="loader.gif" alt="Loading GIF">
+      <img class="loader-gif" src="../images/loader.gif" alt="Loading GIF">
     </div>
     <div id="spinner-text">0%</div>
   </div>
     <div class="container">
         <!-- Gambar yang bisa digeser -->
         <div class="image-container" id="draggableImage">
-            <img src="intip.png" alt="Icon Foto">
+            <img src="../images/intip.png" alt="Icon Foto">
         </div>
 
         <!-- Hasil -->
@@ -407,24 +300,7 @@
     </div>
 
     <script>
-    window.addEventListener("load", function() {
-      const preloader = document.getElementById("preloader");
-      const spinnerText = document.getElementById("spinner-text");
-      let progress = 0;
-      const interval = setInterval(() => {
-        progress++;
-        spinnerText.textContent = progress + "%";
-        if (progress >= 100) {
-          clearInterval(interval);
-          // Mulai fade-out preloader
-          preloader.style.opacity = "0";
-          setTimeout(() => {
-            preloader.style.display = "none";
-            document.getElementById("content").style.display = "block";
-          }, 500);
-        }
-      }, 30); // 30ms interval -> 100*30ms = 3000ms (3 detik)
-    });
+        
         let display = document.getElementById('display');
         let nominalResult = document.getElementById('nominalResult');
         let nominalText = document.getElementById('nominalText');
