@@ -1,298 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Content Monitor</title>
-    <style>
-        :root {
-            --primary-color: #4285F4;
-            --secondary-color: #34A853;
-            --error-color: #EA4335;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-        .header {
-            background-color: #202124;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .logo {
-            font-weight: bold;
-            font-size: 1.5em;
-            color: var(--secondary-color);
-        }
-        .last-updated {
-            font-size: 0.9em;
-            color: #9AA0A6;
-        }
-        .device-toolbar {
-            background-color: white;
-            padding: 10px 20px;
-            display: flex;
-            gap: 10px;
-            border-bottom: 1px solid #e0e0e0;
-            overflow-x: auto;
-        }
-        .device-btn {
-            padding: 8px 12px;
-            border: 1px solid #dadce0;
-            border-radius: 4px;
-            background: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9em;
-            white-space: nowrap;
-        }
-        .device-btn:hover {
-            background-color: #f1f3f4;
-        }
-        .device-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-        .preview-container {
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .preview-wrapper {
-            position: relative;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .device-frame {
-            border: none;
-            background: white;
-            display: block;
-        }
-        .loading {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255,255,255,0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2em;
-            color: var(--primary-color);
-        }
-        .error-message {
-            color: var(--error-color);
-            padding: 20px;
-            text-align: center;
-            background: white;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .refresh-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 100;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            .device-toolbar {
-                padding: 10px;
-            }
-            .preview-container {
-                padding: 10px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Content Monitor</title>
+  <style>
+    :root {
+      --primary-color: #4285f4;
+      --secondary-color: #34a853;
+      --error-color: #ea4335;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    .header {
+      background-color: #202124;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-weight: bold;
+      font-size: 1.5em;
+      color: var(--secondary-color);
+    }
+    .last-updated {
+      font-size: 0.9em;
+      color: #9aa0a6;
+    }
+    .device-toolbar {
+      background-color: white;
+      padding: 10px 20px;
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid #e0e0e0;
+      overflow-x: auto;
+      align-items: center;
+    }
+    .device-btn,
+    .orientation-btn {
+      padding: 8px 12px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.9em;
+      white-space: nowrap;
+    }
+    .device-btn:hover,
+    .orientation-btn:hover {
+      background-color: #f1f3f4;
+    }
+    .device-btn.active {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+    .preview-container {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .preview-wrapper {
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .device-frame {
+      border: none;
+      background: white;
+      display: block;
+    }
+    .loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255,255,255,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2em;
+      color: var(--primary-color);
+    }
+    .error-message {
+      color: var(--error-color);
+      padding: 20px;
+      text-align: center;
+      background: white;
+      margin: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .refresh-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .device-toolbar {
+        padding: 10px;
+      }
+      .preview-container {
+        padding: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">Live Content Monitor</div>
-        <div class="last-updated" id="lastUpdated">Loading content...</div>
-    </div>
-    
-    <div class="device-toolbar">
-        <button class="device-btn active" data-device="desktop" data-width="1280" data-height="800">
-            🖥️ Desktop (1280×800)
-        </button>
-        <button class="device-btn" data-device="laptop" data-width="1024" data-height="768">
-            💻 Laptop (1024×768)
-        </button>
-        <button class="device-btn" data-device="tablet" data-width="768" data-height="1024">
-            📱 Tablet (768×1024)
-        </button>
-        <button class="device-btn" data-device="mobile" data-width="375" data-height="667">
-            📱 Mobile (375×667)
-        </button>
-    </div>
-    
-    <div class="preview-container">
-        <div class="preview-wrapper" id="previewWrapper">
-            <button class="refresh-btn" id="refreshBtn">↻</button>
-            <div class="loading" id="loadingIndicator">Loading content...</div>
-            <iframe class="device-frame" id="previewFrame"></iframe>
-        </div>
-    </div>
+  <div class="header">
+    <div class="logo">Live Content Monitor</div>
+    <div class="last-updated" id="lastUpdated">Loading content...</div>
+  </div>
 
-    <script>
-        // Configuration
-        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyaeMn0QpNmpta8Gsnq-E3ZAFcQjLBb27amxgj_d3OOBaqtFp80mQ1Dq9cU9CyM7yRI/exec';
-        const REFRESH_INTERVAL = 30000; // 30 seconds
-        
-        // DOM Elements
-        const previewFrame = document.getElementById('previewFrame');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        const lastUpdatedEl = document.getElementById('lastUpdated');
-        const refreshBtn = document.getElementById('refreshBtn');
-        const previewWrapper = document.getElementById('previewWrapper');
-        const deviceBtns = document.querySelectorAll('.device-btn');
-        
-        // Current device settings
-        let currentDevice = {
-            type: 'desktop',
-            width: 1280,
-            height: 800
-        };
-        
-        // Initialize
-        function init() {
-            setupDeviceButtons();
-            loadContent();
-            setupAutoRefresh();
-            setupEventListeners();
+  <div class="device-toolbar">
+    <button class="device-btn active" data-device="desktop" data-width="1280" data-height="800">
+      🖥️ Desktop (1280×800)
+    </button>
+    <button class="device-btn" data-device="laptop" data-width="1024" data-height="768">
+      💻 Laptop (1024×768)
+    </button>
+    <button class="device-btn" data-device="tablet" data-width="768" data-height="1024">
+      📱 Tablet (768×1024)
+    </button>
+    <button class="device-btn" data-device="mobile" data-width="375" data-height="667">
+      📱 Mobile (375×667)
+    </button>
+    <button class="orientation-btn" id="toggleOrientation">
+      🔄 Toggle Orientation
+    </button>
+  </div>
+
+  <div class="preview-container">
+    <div class="preview-wrapper" id="previewWrapper">
+      <button class="refresh-btn" id="refreshBtn">↻</button>
+      <div class="loading" id="loadingIndicator">Loading content...</div>
+      <iframe class="device-frame" id="previewFrame"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // Konfigurasi URL GAS dan interval refresh (ms)
+    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyaeMn0QpNmpta8Gsnq-E3ZAFcQjLBb27amxgj_d3OOBaqtFp80mQ1Dq9cU9CyM7yRI/exec';
+    const REFRESH_INTERVAL = 30000; // 30 detik
+
+    // Elemen DOM
+    const previewFrame = document.getElementById('previewFrame');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const lastUpdatedEl = document.getElementById('lastUpdated');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const previewWrapper = document.getElementById('previewWrapper');
+    const deviceBtns = document.querySelectorAll('.device-btn');
+    const toggleOrientationBtn = document.getElementById('toggleOrientation');
+
+    // Pengaturan perangkat saat ini
+    let currentDevice = {
+      type: 'desktop',
+      width: 1280,
+      height: 800,
+      portrait: false // false = landscape, true = portrait
+    };
+
+    // Inisialisasi aplikasi
+    function init() {
+      setupDeviceButtons();
+      setupOrientationToggle();
+      loadContent();
+      setupAutoRefresh();
+      setupEventListeners();
+    }
+
+    // Setup tombol pemilihan device
+    function setupDeviceButtons() {
+      deviceBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          deviceBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          currentDevice = {
+            type: btn.dataset.device,
+            width: parseInt(btn.dataset.width),
+            height: parseInt(btn.dataset.height),
+            portrait: currentDevice.portrait // pertahankan mode orientasi saat ini
+          };
+
+          updatePreviewSize();
+        });
+      });
+    }
+
+    // Setup tombol toggle orientasi
+    function setupOrientationToggle() {
+      toggleOrientationBtn.addEventListener('click', () => {
+        // Toggle nilai portrait
+        currentDevice.portrait = !currentDevice.portrait;
+        // Tukar nilai width dan height jika mode portrait aktif
+        if (currentDevice.portrait) {
+          [currentDevice.width, currentDevice.height] = [currentDevice.height, currentDevice.width];
+        } else {
+          // Jika kembali ke landscape, cari button aktif untuk restore nilai asli
+          const activeBtn = document.querySelector('.device-btn.active');
+          currentDevice.width = parseInt(activeBtn.dataset.width);
+          currentDevice.height = parseInt(activeBtn.dataset.height);
         }
-        
-        // Set up device selection buttons
-        function setupDeviceButtons() {
-            deviceBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    deviceBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    
-                    currentDevice = {
-                        type: btn.dataset.device,
-                        width: parseInt(btn.dataset.width),
-                        height: parseInt(btn.dataset.height)
-                    };
-                    
-                    updatePreviewSize();
-                });
-            });
+        updatePreviewSize();
+      });
+    }
+
+    // Update ukuran iframe berdasarkan device yang dipilih dan orientasi
+    function updatePreviewSize() {
+      // Tentukan skala supaya tampilan muat di viewport
+      const maxWidth = window.innerWidth * 0.9;
+      const maxHeight = window.innerHeight * 0.7;
+
+      let scale = 1;
+      if (currentDevice.width > maxWidth) {
+        scale = maxWidth / currentDevice.width;
+      }
+      if (currentDevice.height * scale > maxHeight) {
+        scale = maxHeight / currentDevice.height;
+      }
+
+      previewFrame.style.width = `${currentDevice.width}px`;
+      previewFrame.style.height = `${currentDevice.height}px`;
+      previewWrapper.style.transform = `scale(${scale})`;
+      previewWrapper.style.transformOrigin = 'top center';
+    }
+
+    // Memuat konten dari GAS
+    async function loadContent() {
+      try {
+        showLoading();
+
+        const response = await fetch(`${GAS_WEB_APP_URL}?action=load&t=${Date.now()}`);
+        const result = await response.json();
+
+        if (result.success) {
+          // Perbarui konten iframe
+          previewFrame.srcdoc = result.content;
+
+          // Perbarui waktu update
+          const now = new Date();
+          lastUpdatedEl.textContent = `Last updated: ${now.toLocaleString()}`;
+
+          // Hilangkan loading setelah iframe selesai render
+          previewFrame.onload = () => {
+            hideLoading();
+          };
+        } else {
+          showError(result.message || 'Failed to load content');
         }
-        
-        // Update iframe size based on selected device
-        function updatePreviewSize() {
-            // Scale down large devices to fit viewport
-            const maxWidth = window.innerWidth * 0.9;
-            const maxHeight = window.innerHeight * 0.7;
-            
-            let scale = 1;
-            if (currentDevice.width > maxWidth) {
-                scale = maxWidth / currentDevice.width;
-            }
-            if (currentDevice.height * scale > maxHeight) {
-                scale = maxHeight / currentDevice.height;
-            }
-            
-            previewFrame.style.width = `${currentDevice.width}px`;
-            previewFrame.style.height = `${currentDevice.height}px`;
-            previewWrapper.style.transform = `scale(${scale})`;
-            previewWrapper.style.transformOrigin = 'top center';
-        }
-        
-        // Load content from GAS
-        async function loadContent() {
-            try {
-                showLoading();
-                
-                const response = await fetch(`${GAS_WEB_APP_URL}?action=load&t=${Date.now()}`);
-                const result = await response.json();
-                
-                if (result.success) {
-                    // Update iframe content
-                    previewFrame.srcdoc = result.content;
-                    
-                    // Update last updated time
-                    const now = new Date();
-                    lastUpdatedEl.textContent = `Last updated: ${now.toLocaleString()}`;
-                    
-                    // Hide loading after content is rendered
-                    previewFrame.onload = () => {
-                        hideLoading();
-                    };
-                } else {
-                    showError(result.message || 'Failed to load content');
-                }
-            } catch (error) {
-                showError(error.message);
-            }
-        }
-        
-        // Set up auto-refresh
-        function setupAutoRefresh() {
-            setInterval(loadContent, REFRESH_INTERVAL);
-        }
-        
-        // Set up event listeners
-        function setupEventListeners() {
-            // Manual refresh button
-            refreshBtn.addEventListener('click', () => {
-                loadContent();
-            });
-            
-            // Window resize handler
-            window.addEventListener('resize', () => {
-                updatePreviewSize();
-            });
-        }
-        
-        // Show loading state
-        function showLoading() {
-            loadingIndicator.style.display = 'flex';
-        }
-        
-        // Hide loading state
-        function hideLoading() {
-            loadingIndicator.style.display = 'none';
-        }
-        
-        // Show error message
-        function showError(message) {
-            loadingIndicator.innerHTML = `<div class="error-message">${message}</div>`;
-            loadingIndicator.style.display = 'flex';
-        }
-        
-        // Initialize the app
-        window.onload = init;
-    </script>
+      } catch (error) {
+        showError(error.message);
+      }
+    }
+
+    // Setup auto-refresh
+    function setupAutoRefresh() {
+      setInterval(loadContent, REFRESH_INTERVAL);
+    }
+
+    // Setup event listener lainnya
+    function setupEventListeners() {
+      refreshBtn.addEventListener('click', loadContent);
+      window.addEventListener('resize', updatePreviewSize);
+    }
+
+    // Tampilkan indikator loading
+    function showLoading() {
+      loadingIndicator.style.display = 'flex';
+    }
+
+    // Hilangkan indikator loading
+    function hideLoading() {
+      loadingIndicator.style.display = 'none';
+    }
+
+    // Tampilkan pesan error
+    function showError(message) {
+      loadingIndicator.innerHTML = `<div class="error-message">${message}</div>`;
+      loadingIndicator.style.display = 'flex';
+    }
+
+    window.onload = init;
+  </script>
 </body>
 </html>
