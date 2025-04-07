@@ -1,115 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Live Content Monitor</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f0f0f0;
-    }
-    .navbar {
-      background: #222;
-      color: #0f0;
-      padding: 10px 20px;
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .device-toolbar {
-      display: flex;
-      gap: 10px;
-      padding: 10px 20px;
-      background: #fff;
-      border-bottom: 1px solid #ccc;
-    }
-    .device-button {
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background: #f9f9f9;
-      cursor: pointer;
-    }
-    .device-button.active {
-      background: #007bff;
-      color: #fff;
-    }
-    iframe {
-      width: 100%;
-      border: none;
-      display: block;
-      margin: 0 auto;
-    }
-    #status {
-      padding: 10px;
-      font-size: 14px;
-      text-align: center;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Online Editor</title>
+  <link rel="stylesheet" href="asset/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="asset/antiKlikKanan.js" defer></script>
 </head>
 <body>
+  <header>
+    <h1>Online Editor</h1>
+    <div class="header-buttons">
+      <div class="header-file-btn">
+        <button onclick="toggleMobileFileMenu()">📁 File</button>
+        <div class="header-file-content">
+          <a href="#" onclick="exportProjectAsZip()"><i class="fas fa-file-archive"></i> Export Project</a>
+          <a href="#" onclick="exportHTML()"><i class="fas fa-file-code"></i> Export HTML</a>
+          <a href="#" onclick="showImportModal('html')"><i class="fas fa-file-import"></i> Import HTML</a>
+          <a href="#" onclick="clearAllData()"><i class="fas fa-trash"></i> Clear All Data</a>
+          <a href="#" onclick="showGitHubMonitor()"><i class="fas fa-code-branch"></i> GitHub Monitor</a>
+        </div>
+      </div>
+      <button id="consoleToggle" onclick="toggleConsole()">Console</button>
+      <button id="runButton" onclick="toggleRunPanel()">▶️ Run</button>
+      <select id="typeSelect">
+        <option value="">⚙️ Panel</option>
+        <option value="css">🎨 CSS</option>
+        <option value="js">⚙️ JS</option>
+      </select>
+      <button id="themeToggle" onclick="toggleTheme()">🌓 Theme</button>
+    </div>
+  </header>
 
-  <div class="navbar">Live Content Monitor</div>
-  <div class="device-toolbar">
-    <button class="device-button active" onclick="setDevice(1280, 800)">🖥 Desktop (1280×800)</button>
-    <button class="device-button" onclick="setDevice(1024, 768)">💻 Laptop (1024×768)</button>
-    <button class="device-button" onclick="setDevice(768, 1024)">📱 Tablet (768×1024)</button>
-    <button class="device-button" onclick="setDevice(375, 667)">📱 Mobile (375×667)</button>
-    <button class="device-button" onclick="toggleOrientation()">🔄 Toggle Orientation</button>
+  <!-- Console Panel -->
+  <div id="consolePanel" class="console-panel">
+    <div class="console-header">
+      <div class="console-title">CONSOLE</div>
+      <div class="console-controls">
+        <button onclick="clearConsole()">Clear</button>
+        <button onclick="toggleConsole()">Hide</button>
+      </div>
+    </div>
+    <div class="console-content" id="consoleOutput">
+      <div class="log-message">Console ready. Type JavaScript commands below.</div>
+    </div>
+    <div class="console-input-area">
+      <input type="text" class="console-input" id="consoleInput" placeholder="Enter command..." onkeypress="handleConsoleInput(event)">
+    </div>
   </div>
 
-  <div id="status">Memuat konten dari GAS...</div>
-  <iframe id="preview-frame"></iframe>
+  <!-- Main Container -->
+  <div class="main-container" id="mainContainer">
+    <div class="html-editor">
+      <div class="html-editor-header">
+        <span>HTML Editor</span>
+        <button onclick="checkHtmlSyntax()" style="padding: 2px 8px; font-size: 12px;">Check Syntax</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="htmlSearch" placeholder="Search in HTML...">
+        <button onclick="searchInEditor('html')">🔍</button>
+      </div>
+      <div class="html-editor-body">
+        <div class="html-line-numbers" id="htmlLineNumbers">1</div>
+        <div class="html-content" id="htmlContent" contenteditable="true" spellcheck="false"></div>
+      </div>
+    </div>
 
-  <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbyaeMn0QpNmpta8Gsnq-E3ZAFcQjLBb27amxgj_d3OOBaqtFp80mQ1Dq9cU9CyM7yRI/exec?action=load";
-    const frame = document.getElementById("preview-frame");
-    const statusDiv = document.getElementById("status");
-    let currentWidth = 1280;
-    let currentHeight = 800;
+    <!-- CSS Panel -->
+    <div class="slide-panel" id="cssPanel">
+      <div class="slide-tabs" id="cssTabs"></div>
+      <div class="css-panel-header">
+        <div class="panel-title">CSS Panel</div>
+        <div class="slide-controls-css-js">
+          <input type="text" id="cssFileName" placeholder="File name (without .css)" />
+          <div class="file-management-dropdown">
+            <button class="file-management-btn" onclick="toggleFileManagement('css')">
+              <i class="fas fa-cog"></i> Manage Files
+            </button>
+            <div id="cssFileManagement" class="file-management-content">
+              <a href="#" onclick="showImportModal('css')"><i class="fas fa-file-import"></i> Import CSS</a>
+              <a href="#" onclick="exportProjectAsZip()"><i class="fas fa-file-archive"></i> Export Project</a>
+              <a href="#" onclick="exportHTML()"><i class="fas fa-file-code"></i> Export HTML</a>
+              <a href="#" onclick="showImportModal('html')"><i class="fas fa-file-import"></i> Import HTML</a>
+              <a href="#" onclick="createNewFile('css')"><i class="fas fa-plus"></i> New File</a>
+              <a href="#" onclick="clearCurrentFile('css')"><i class="fas fa-trash"></i> Clear CSS</a>
+              <a href="#" onclick="clearAllData()"><i class="fas fa-broom"></i> Clear All</a>
+              <a href="#" onclick="formatCurrentFile('css')"><i class="fas fa-align-left"></i> Format CSS</a>
+              <a href="#" onclick="showGitHubMonitor()"><i class="fas fa-code-branch"></i> GitHub Monitor</a>
+            </div>
+          </div>
+          <button class="panel-width-toggle" onclick="togglePanelWidth('cssPanel')">100%</button>
+        </div>
+        <button class="close-button" onclick="handleClose('cssPanel')">Close</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="cssSearch" placeholder="Search in CSS...">
+        <button onclick="searchInEditor('css')">🔍</button>
+      </div>
+      <div class="editor-css-js">
+        <div class="line-numbers" id="cssLineNumbers"></div>
+        <div class="code-content" id="cssContent" contenteditable="true" spellcheck="false"></div>
+      </div>
+    </div>
 
-    // Fetch content from GAS
-    fetch(GAS_URL)
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          frame.srcdoc = data.content;
-          statusDiv.innerText = "✅ Konten berhasil dimuat.";
-        } else {
-          statusDiv.innerText = "❌ Gagal memuat: " + data.message;
-        }
-      })
-      .catch(err => {
-        statusDiv.innerText = "❌ Error: " + err.message;
-      });
+    <!-- JS Panel -->
+    <div class="slide-panel" id="jsPanel">
+      <div class="slide-tabs" id="jsTabs"></div>
+      <div class="js-panel-header">
+        <div class="panel-title">JS Panel</div>
+        <div class="slide-controls-css-js">
+          <input type="text" id="jsFileName" placeholder="File name (without .js)" />
+          <div class="file-management-dropdown">
+            <button class="file-management-btn" onclick="toggleFileManagement('js')">
+              <i class="fas fa-cog"></i> Manage Files
+            </button>
+            <div id="jsFileManagement" class="file-management-content">
+              <a href="#" onclick="showImportModal('js')"><i class="fas fa-file-import"></i> Import JS</a>
+              <a href="#" onclick="exportProjectAsZip()"><i class="fas fa-file-archive"></i> Export Project</a>
+              <a href="#" onclick="exportHTML()"><i class="fas fa-file-code"></i> Export HTML</a>
+              <a href="#" onclick="showImportModal('html')"><i class="fas fa-file-import"></i> Import HTML</a>
+              <a href="#" onclick="createNewFile('js')"><i class="fas fa-plus"></i> New File</a>
+              <a href="#" onclick="clearCurrentFile('js')"><i class="fas fa-trash"></i> Clear JS</a>
+              <a href="#" onclick="clearAllData()"><i class="fas fa-broom"></i> Clear All</a>
+              <a href="#" onclick="formatCurrentFile('js')"><i class="fas fa-align-left"></i> Format JS</a>
+              <a href="#" onclick="showGitHubMonitor()"><i class="fas fa-code-branch"></i> GitHub Monitor</a>
+            </div>
+          </div>
+          <button class="panel-width-toggle" onclick="togglePanelWidth('jsPanel')">100%</button>
+        </div>
+        <button class="close-button" onclick="handleClose('jsPanel')">Close</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="jsSearch" placeholder="Search in JS...">
+        <button onclick="searchInEditor('js')">🔍</button>
+      </div>
+      <div class="editor-css-js">
+        <div class="line-numbers" id="jsLineNumbers"></div>
+        <div class="code-content" id="jsContent" contenteditable="true" spellcheck="false"></div>
+      </div>
+    </div>
+    
+    <div class="panel-overlay" id="panelOverlay" onclick="closeAllPanels()"></div>
+  </div>
 
-    function setDevice(width, height) {
-      currentWidth = width;
-      currentHeight = height;
-      frame.style.width = width + "px";
-      frame.style.height = height + "px";
-      updateActiveButton(width, height);
-    }
+  <!-- Run Panel -->
+  <div class="run-panel" id="runPanel">
+    <div class="toolbar">
+      <button onclick="setDevice('desktop')">🖥️ Desktop</button>
+      <button onclick="setDevice('laptop')">💻 Laptop</button>
+      <button onclick="setDevice('tablet')">📱 Tablet</button>
+      <button onclick="setDevice('mobile')">📱 Mobile</button>
+      <button onclick="rotateDevice()">🔄 Rotate</button>
+      
+      <div class="run-file-btn">
+        <button>📁 File</button>
+        <div class="run-file-content">
+          <a href="#" onclick="exportProjectAsZip()"><i class="fas fa-file-archive"></i> Export Project</a>
+          <a href="#" onclick="exportHTML()"><i class="fas fa-file-code"></i> Export HTML</a>
+          <a href="#" onclick="showImportModal('html')"><i class="fas fa-file-import"></i> Import HTML</a>
+          <a href="#" onclick="clearAllData()"><i class="fas fa-trash"></i> Clear All Data</a>
+          <a href="#" onclick="showGitHubMonitor()"><i class="fas fa-code-branch"></i> GitHub Monitor</a>
+        </div>
+      </div>
+      
+      <div class="zoom-control">
+        <button onclick="adjustZoom(-10)">-</button>
+        <span id="zoomValue">100%</span>
+        <button onclick="adjustZoom(10)">+</button>
+      </div>
+      
+      <button class="panel-width-toggle" onclick="toggleRunPanelWidth()">50%</button>
+      <button onclick="refreshPreview()">🔄 Refresh</button>
+    </div>
+    <div class="preview-container">
+      <div class="preview-content">
+        <iframe id="previewFrame" class="preview-iframe" sandbox="allow-scripts allow-same-origin"></iframe>
+      </div>
+    </div>
+  </div>
 
-    function toggleOrientation() {
-      let temp = currentWidth;
-      currentWidth = currentHeight;
-      currentHeight = temp;
-      frame.style.width = currentWidth + "px";
-      frame.style.height = currentHeight + "px";
-    }
+  <!-- Import File Modal -->
+  <div id="importModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <h3 id="modalTitle">Import File</h3>
+      <div class="modal-body">
+        <label class="file-input-label">Select file to import:</label>
+        <input type="file" id="fileInput" class="file-input" />
+        <div id="importOptions" style="display: none;">
+          <label class="file-input-label">Import as:</label>
+          <select id="importType" class="file-input">
+            <option value="replace">Replace Current File</option>
+            <option value="new">New File</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button onclick="importFile()" style="padding: 8px 16px; background: var(--primary); color: var(--text-light); border: none; border-radius: var(--radius-sm); cursor: pointer;">Import</button>
+      </div>
+    </div>
+  </div>
 
-    function updateActiveButton(w, h) {
-      const buttons = document.querySelectorAll(".device-button");
-      buttons.forEach(btn => btn.classList.remove("active"));
-      if (w === 1280 && h === 800) buttons[0].classList.add("active");
-      else if (w === 1024 && h === 768) buttons[1].classList.add("active");
-      else if (w === 768 && h === 1024) buttons[2].classList.add("active");
-      else if (w === 375 && h === 667) buttons[3].classList.add("active");
-    }
-
-    // Set default
-    setDevice(1280, 800);
-  </script>
+  <!-- GitHub Monitor Modal -->
+  <div id="githubMonitorModal" class="github-monitor-modal">
+    <div class="github-monitor-content">
+      <span class="close-modal" onclick="closeGitHubMonitor()">&times;</span>
+      <h3>GitHub Monitor</h3>
+      <div class="github-monitor-body">
+        <label class="file-input-label">GitHub Repository URL:</label>
+        <input type="text" id="githubRepoUrl" class="github-input" placeholder="https://github.com/username/repository" />
+        
+        <label class="file-input-label">Google Apps Script Web App URL:</label>
+        <input type="text" id="gasWebAppUrl" class="github-input" placeholder="https://script.google.com/macros/s/..." />
+        
+        <div class="github-status" id="githubStatus">
+          Status: Not connected
+        </div>
+      </div>
+      <div class="github-monitor-footer">
+        <button onclick="testGitHubConnection()" style="padding: 8px 16px; background: var(--primary); color: var(--text-light); border: none; border-radius: var(--radius-sm); cursor: pointer; margin-right: 8px;">Test Connection</button>
+        <button onclick="saveGitHubSettings()" style="padding: 8px 16px; background: var(--success); color: var(--text-light); border: none; border-radius: var(--radius-sm); cursor: pointer;">Save Settings</button>
+      </div>
+    </div>
+  </div>
+<head>
+  <script src="asset/script.js"></script>
+</head>
 </body>
 </html>
