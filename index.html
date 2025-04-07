@@ -1,239 +1,298 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <!-- Meta viewport: memastikan halaman ditampilkan secara responsif pada perangkat mobile -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profil & Skill</title>
-  <style>
-    /* ======================================================
-       RESET CSS
-       ======================================================
-       - Menghapus margin dan padding default dari semua elemen HTML.
-       - Menetapkan box-sizing secara konsisten sehingga properti padding dan border tidak memengaruhi total lebar elemen.
-    ====================================================== */
-    html {
-      box-sizing: border-box;
-    }
-    *, *::before, *::after {
-      box-sizing: inherit;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* ========================
-       Background Video (Desktop)
-    ========================= */
-    .desktop-bg-video {
-      position: fixed; 
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
-
-    /* ======================================================
-       PRELOADER
-       ======================================================
-       - Menampilkan loading indicator berupa spinner melingkar di tengah layar.
-       - Gambar GIF akan ditempatkan tepat di tengah spinner.
-       - Spinner menggunakan kombinasi warna:
-         • Warna dasar (border) biru: #00aaff.
-         • Bagian atas (border-top) berwarna merah: #ff0000.
-       - Latar belakang preloader menggunakan warna transparan sehingga menu utama tetap samar terlihat.
-       - Teks progress muncul tepat di bawah spinner.
-    ====================================================== */
-    #preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.3); /* Latar belakang agak transparan */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 1;
-      transition: opacity 0.5s ease;
-    }
-    /* Container spinner untuk menggabungkan spinner dan GIF */
-    .spinner-container {
-      position: relative;
-      display: inline-block;
-    }
-    .spinner {
-      border-radius: 50%;
-      /* Ukuran spinner default untuk layar sedang */
-      width: 150px;
-      height: 150px;
-      border: 10px solid #00aaff;  /* Warna dasar biru */
-      border-top-color: #ff0000;   /* Bagian atas berwarna merah */
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    /* Gaya untuk gambar GIF di dalam spinner, ditempatkan tepat di tengah spinner */
-    .loader-gif {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90px; /* Ukuran GIF disesuaikan agar muat di dalam spinner */
-      height: auto;
-      z-index: 1001;
-    }
-    /* Teks progress yang muncul tepat di bawah spinner */
-    #spinner-text {
-      margin-top: 20px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #00aaff;
-      text-align: center;
-    }
-    /* Media queries untuk ukuran spinner responsif */
-    @media (max-width: 480px) {
-      .spinner {
-        width: 80px;
-        height: 80px;
-        border: 6px solid #00aaff;
-        border-top-color: #ff0000;
-      }
-      .loader-gif {
-        width: 40px;
-      }
-      #spinner-text {
-        font-size: 16px;
-      }
-    }
-    @media (min-width: 481px) and (max-width: 768px) {
-      .spinner {
-        width: 120px;
-        height: 120px;
-        border: 8px solid #00aaff;
-        border-top-color: #ff0000;
-      }
-      .loader-gif {
-        width: 70px;
-      }
-      #spinner-text {
-        font-size: 20px;
-      }
-    }
-    @media (min-width: 1025px) {
-      .spinner {
-        width: 200px;
-        height: 200px;
-        border: 12px solid #00aaff;
-        border-top-color: #ff0000;
-      }
-      .loader-gif {
-        width: 150px;
-      }
-      #spinner-text {
-        font-size: 28px;
-      }
-    }
-
-    /* ======================================================
-       STYLE DASAR UNTUK HALAMAN
-    ====================================================== */
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #000;
-      color: #fff;
-      padding: 20px;
-    }
-    header {
-      text-align: center;
-      background-color: #222;
-      padding: 0px;
-      border-bottom: 4px solid #00aaff;
-      font-size: 34px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-    .profile-header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .profile-header img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #00aaff;
-      margin-bottom: 10px;
-      box-shadow: 0 0 8px #00aaff, 0 0 16px #00aaff, 0 0 24px #00aaff;
-      transition: box-shadow 0.3s ease-in-out;
-    }
-    .profile-header .info {
-      line-height: 1.6;
-      font-size: 14px;
-    }
-    .profile-header .info a {
-      color: #00aaff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Content Monitor</title>
+    <style>
+        :root {
+            --primary-color: #4285F4;
+            --secondary-color: #34A853;
+            --error-color: #EA4335;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background-color: #202124;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .logo {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: var(--secondary-color);
+        }
+        .last-updated {
+            font-size: 0.9em;
+            color: #9AA0A6;
+        }
+        .device-toolbar {
+            background-color: white;
+            padding: 10px 20px;
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            overflow-x: auto;
+        }
+        .device-btn {
+            padding: 8px 12px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+        .device-btn:hover {
+            background-color: #f1f3f4;
+        }
+        .device-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        .preview-container {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .preview-wrapper {
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .device-frame {
+            border: none;
+            background: white;
+            display: block;
+        }
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            color: var(--primary-color);
+        }
+        .error-message {
+            color: var(--error-color);
+            padding: 20px;
+            text-align: center;
+            background: white;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .refresh-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .device-toolbar {
+                padding: 10px;
+            }
+            .preview-container {
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Background Video -->
-  <video class="desktop-bg-video" autoplay muted loop playsinline>
-    <source src="video/angka.mp4" type="video/mp4">
-      Browser Anda tidak mendukung video.
-    </video>
-  <!-- PRELOADER: Loading indicator dengan gambar GIF di dalam spinner dan teks progress -->
-  <div id="preloader">
-    <div class="spinner-container">
-      <div class="spinner"></div>
-      <img class="loader-gif" src="images/loader.gif" alt="Loading GIF">
+    <div class="header">
+        <div class="logo">Live Content Monitor</div>
+        <div class="last-updated" id="lastUpdated">Loading content...</div>
     </div>
-    <div id="spinner-text">0%</div>
-  </div>
-  
-  <!-- SCRIPT: Mengupdate teks progress dan menonaktifkan preloader setelah mencapai 100% -->
-  <script>
-// loading.js
-window.addEventListener("load", function () {
-  const spinnerText = document.getElementById("spinner-text");
-  let progress = 0;
+    
+    <div class="device-toolbar">
+        <button class="device-btn active" data-device="desktop" data-width="1280" data-height="800">
+            🖥️ Desktop (1280×800)
+        </button>
+        <button class="device-btn" data-device="laptop" data-width="1024" data-height="768">
+            💻 Laptop (1024×768)
+        </button>
+        <button class="device-btn" data-device="tablet" data-width="768" data-height="1024">
+            📱 Tablet (768×1024)
+        </button>
+        <button class="device-btn" data-device="mobile" data-width="375" data-height="667">
+            📱 Mobile (375×667)
+        </button>
+    </div>
+    
+    <div class="preview-container">
+        <div class="preview-wrapper" id="previewWrapper">
+            <button class="refresh-btn" id="refreshBtn">↻</button>
+            <div class="loading" id="loadingIndicator">Loading content...</div>
+            <iframe class="device-frame" id="previewFrame"></iframe>
+        </div>
+    </div>
 
-  const interval = setInterval(() => {
-    progress++;
-    spinnerText.textContent = progress + "%";
-
-    if (progress >= 100) { 
-      clearInterval(interval);
-      setTimeout(() => {
-        // Ambil query parameter 'target'
-        const urlParams = new URLSearchParams(window.location.search);
-        const target = urlParams.get('target');
+    <script>
+        // Configuration
+        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyaeMn0QpNmpta8Gsnq-E3ZAFcQjLBb27amxgj_d3OOBaqtFp80mQ1Dq9cU9CyM7yRI/exec';
+        const REFRESH_INTERVAL = 30000; // 30 seconds
         
-        // Mapping nilai parameter ke halaman target
-        const pageMapping = {
-          tema1: "asset/tema1.html",
-          tema2: "asset/tema2.html",
-          tema3: "asset/tema3.html",
-          porto1: "asset/porto1.html",
-          porto2: "asset/porto2.html",
-          porto3: "asset/porto3.html",
-          kalkulator: "asset/kalkulator.html",
-          webpdf: "asset/webpdf.html",
+        // DOM Elements
+        const previewFrame = document.getElementById('previewFrame');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const lastUpdatedEl = document.getElementById('lastUpdated');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const previewWrapper = document.getElementById('previewWrapper');
+        const deviceBtns = document.querySelectorAll('.device-btn');
+        
+        // Current device settings
+        let currentDevice = {
+            type: 'desktop',
+            width: 1280,
+            height: 800
         };
-
-        // Jika parameter target tidak ditemukan, fallback ke index.html
-        const targetPage = pageMapping[target] || "asset/tema1.html";
-        window.location.href = targetPage;
-      }, 200);
-    }
-  }, 10);
-});
-
-
-  </script>
+        
+        // Initialize
+        function init() {
+            setupDeviceButtons();
+            loadContent();
+            setupAutoRefresh();
+            setupEventListeners();
+        }
+        
+        // Set up device selection buttons
+        function setupDeviceButtons() {
+            deviceBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    deviceBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    currentDevice = {
+                        type: btn.dataset.device,
+                        width: parseInt(btn.dataset.width),
+                        height: parseInt(btn.dataset.height)
+                    };
+                    
+                    updatePreviewSize();
+                });
+            });
+        }
+        
+        // Update iframe size based on selected device
+        function updatePreviewSize() {
+            // Scale down large devices to fit viewport
+            const maxWidth = window.innerWidth * 0.9;
+            const maxHeight = window.innerHeight * 0.7;
+            
+            let scale = 1;
+            if (currentDevice.width > maxWidth) {
+                scale = maxWidth / currentDevice.width;
+            }
+            if (currentDevice.height * scale > maxHeight) {
+                scale = maxHeight / currentDevice.height;
+            }
+            
+            previewFrame.style.width = `${currentDevice.width}px`;
+            previewFrame.style.height = `${currentDevice.height}px`;
+            previewWrapper.style.transform = `scale(${scale})`;
+            previewWrapper.style.transformOrigin = 'top center';
+        }
+        
+        // Load content from GAS
+        async function loadContent() {
+            try {
+                showLoading();
+                
+                const response = await fetch(`${GAS_WEB_APP_URL}?action=load&t=${Date.now()}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Update iframe content
+                    previewFrame.srcdoc = result.content;
+                    
+                    // Update last updated time
+                    const now = new Date();
+                    lastUpdatedEl.textContent = `Last updated: ${now.toLocaleString()}`;
+                    
+                    // Hide loading after content is rendered
+                    previewFrame.onload = () => {
+                        hideLoading();
+                    };
+                } else {
+                    showError(result.message || 'Failed to load content');
+                }
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+        
+        // Set up auto-refresh
+        function setupAutoRefresh() {
+            setInterval(loadContent, REFRESH_INTERVAL);
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Manual refresh button
+            refreshBtn.addEventListener('click', () => {
+                loadContent();
+            });
+            
+            // Window resize handler
+            window.addEventListener('resize', () => {
+                updatePreviewSize();
+            });
+        }
+        
+        // Show loading state
+        function showLoading() {
+            loadingIndicator.style.display = 'flex';
+        }
+        
+        // Hide loading state
+        function hideLoading() {
+            loadingIndicator.style.display = 'none';
+        }
+        
+        // Show error message
+        function showError(message) {
+            loadingIndicator.innerHTML = `<div class="error-message">${message}</div>`;
+            loadingIndicator.style.display = 'flex';
+        }
+        
+        // Initialize the app
+        window.onload = init;
+    </script>
 </body>
 </html>
